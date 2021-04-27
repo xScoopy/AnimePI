@@ -31,6 +31,7 @@ DELETE - remove resources
 ### /Shows
 
 #### Attributes
+
 **Title** - Title of the show
 
 **Seasons** - Amount of seasons currently available (as of April 2021)
@@ -55,6 +56,45 @@ DELETE - remove resources
 **publisher** : filters by a given str type publisher
 
 **name**: filters by a given str name
+
+**platform**: filters by platform
+
+
+### /Genres
+
+#### Attributes
+
+**name** - Genre name
+
+**shows** - List of shows belonging to that genre
+
+#### Filters
+
+**name** : filter by genre name
+
+### /Platforms
+
+#### Attributes
+
+**name** - Platform name
+
+> A GET request to /Platform will return a list of the names of the platforms
+
+### /Users
+
+#### Attributes
+
+**username** - username for a user
+
+**shows_watched** - list of shows watched by that user
+
+**shows_favorited** - list of shows favorited by that user
+
+#### Filters
+
+**show_watched** : filter by users who have watched a show
+
+**show_favorited** : filter by users who have favorited a show
 
 
 
