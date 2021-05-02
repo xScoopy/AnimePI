@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "mocha src/test"
   },
   "author": "Jeremiah",
   "license": "ISC",
