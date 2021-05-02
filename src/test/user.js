@@ -6,6 +6,8 @@ const chaiHttp = require('chai-http')
 
 const User = require('../models/user.js')
 
+chai.config.includeStack = true
+
 const expect = chai.expect
 const should = chai.should()
 chai.use(chaiHttp)
@@ -49,6 +51,23 @@ describe('User API endpoints', () => {
             expect(res).to.have.status(200)
             expect(res.body.users).to.be.an("array")
             done()
+        })
+    })
+
+    it('should post a new user', (done) => {
+        chai.request(app)
+        .post('/users')
+        .send({username: 'anothertest', password: 'anotherpass'})
+        .end((err,res) => {
+            if (err) { done(err) }
+            expect(res.body.user).to.be.an('object')
+            expect(res.body.user).to.have.property('username', 'anothertest')
+        
+        User.findOne({username: 'anothertest'})
+        .then(user => {
+            expect(user).to.be.an('object')
+            done()
+        })
         })
     })
     
