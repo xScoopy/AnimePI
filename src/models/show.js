@@ -6,8 +6,8 @@ const ShowSchema = new Schema({
     publisher: { type:String, required: true},
     genres: [{ type: Schema.Types.ObjectId, ref: "Genre", required: true }],
     platforms: [{ type: Schema.Types.ObjectId, ref: "Platform", required: true }],
-    watched_by: [{ type: Schema.Types.ObjectId, ref: "User"}],
-    favorited_by: [{ type: Schema.Types.ObjectId, ref: "User"}]
+    watchedBy: [{ type: Schema.Types.ObjectId, ref: "User"}],
+    favoritedBy: [{ type: Schema.Types.ObjectId, ref: "User"}]
 })
 
 ShowSchema.pre('findOne', function (next) {
