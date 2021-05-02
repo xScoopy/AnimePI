@@ -91,6 +91,23 @@ describe('User API endpoints', () => {
         })
     })
     
-    
+    it('should delete a user', (done) => {
+        User.findOne({username: 'test'})
+        .then((user) => {
+            chai.request(app)
+            .delete(`/users/${user._id}`)
+            .end((err, res) => {
+                if (err) {done(err)}
+                expect(res.body.message).to.equal('Successfully deleted.')
+                expect(res.body._id).to.equal(user._id)
+
+            User.findOne({username: 'test'})
+                .then(user => {
+                    expect(user).to.equal(null)
+                    done()
+                })
+            })
+        })
+    })
 
 })
