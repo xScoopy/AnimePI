@@ -87,4 +87,15 @@ describe('Shows API endpoints', () => {
             console.log(err)
         })
     })
+
+    it('should load all shows in json format', (done) => {
+        chai.request(app)
+        .get('/shows')
+        .end((err,res) => {
+            if (err) { done(err) }
+            expect(res).to.have.status(200)
+            expect(res.body.shows).to.be.an("array")
+            done();
+        })
+    })
 })
