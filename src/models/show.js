@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 const ShowSchema = new Schema({
     title: { type:String, required: true }, 
     publisher: { type:String, required: true},
-    genres: [{ type: Schema.Types.ObjectId, ref: "Genre", required: true }],
-    platforms: [{ type: Schema.Types.ObjectId, ref: "Platform", required: true }],
+    genres: [{ type: Schema.Types.ObjectId, ref: "Genre"}],
+    platforms: [{ type: Schema.Types.ObjectId, ref: "Platform"}],
     watchedBy: [{ type: Schema.Types.ObjectId, ref: "User"}],
     favoritedBy: [{ type: Schema.Types.ObjectId, ref: "User"}]
 })

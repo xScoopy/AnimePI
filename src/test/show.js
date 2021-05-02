@@ -98,4 +98,25 @@ describe('Shows API endpoints', () => {
             done();
         })
     })
+
+    it('should get one specific show', (done)  => {
+        Show.findOne({title: 'test show'})
+        .then((show) => {
+            chai.request(app)
+            .get(`/shows/${show._id}`)
+            .end((err, res) => {
+                if (err) {done(err)}
+                expect(res).to.have.status(200)
+                expect(res.body).to.be.an('object')
+                expect(res.body.title).to.equal('test show')
+                expect(res.body.publisher).to.equal('test publisher')
+                expect(res.body.genres).to.be.an('array')
+                done()
+            })
+        })
+    })
+
+    it('should post a new show', (done) => {
+        
+    })
 })
