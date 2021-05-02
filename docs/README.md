@@ -20,7 +20,7 @@ GET - Retrieve resources
 
 POST - Create new resources
 
-PATCH - Update/modify existing resources
+PATCH/PUT - Update/modify existing resources
 
 DELETE - remove resources 
 
