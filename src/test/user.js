@@ -64,10 +64,30 @@ describe('User API endpoints', () => {
             expect(res.body.user).to.have.property('username', 'anothertest')
         
         User.findOne({username: 'anothertest'})
-        .then(user => {
-            expect(user).to.be.an('object')
-            done()
+            .then(user => {
+                expect(user).to.be.an('object')
+                done()
+            })
         })
+    })
+    
+    it('should update a user', (done) => {
+        User.findOne({username: 'test'})
+        .then((user) => {
+            chai.request(app)
+            .put(`/users/${user._id}`)
+            .send({username: 'anothertest'})
+            .end((err, res) => {
+                if (err) {done(err)}
+                expect(res.body.user).to.be.an('object')
+                expect(res.body.user).to.have.property('username', 'anothertest')
+            
+            User.findOne({username: 'anothertest'})
+                .then((user) => {
+                    expect(user).to.be.an('object')
+                    done()
+                })
+            })
         })
     })
     
