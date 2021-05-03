@@ -107,5 +107,22 @@ describe('Platform API endpoints', () => {
         })
     })
 
-    
+    it('should delete a platform', (done) => {
+        Platform.findOne({title: 'test platform' })
+        .then((platform) => {
+            chai.request(app)
+            .delete(`/platforms/${platform._id}`)
+            .end((err, res) => {
+                if(err) {done(err)}
+                expect(res.body.message).to.equal('Successfully deleted')
+                
+                //ensure it's not in the db
+                Platform.findOne({title:'test platform'})
+                .then((platform) => {
+                    expect(platform).to.equal(null)
+                    done()
+                })
+            })
+        })
+    })
 })
