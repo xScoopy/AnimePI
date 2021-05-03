@@ -24,7 +24,8 @@ after((done) => {
 describe('Genre API endpoints', () => {
     beforeEach((done) => {
         const sampleGenre = new Genre({
-            name: 'test genre'
+            name: 'test genre', 
+            shows: []
         })
         sampleGenre.save()
         .then(() => {

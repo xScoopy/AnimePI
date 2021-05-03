@@ -24,7 +24,8 @@ after((done) => {
 describe('Platform API endpoints', () => {
     beforeEach((done) => {
         const samplePlatform = new Platform({
-            name: 'test platform'
+            name: 'test platform',
+            shows: []
         })
         samplePlatform.save()
         .then(() => {
