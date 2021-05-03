@@ -117,6 +117,40 @@ describe('Shows API endpoints', () => {
     })
 
     it('should post a new show', (done) => {
-        
+        chai.request(app)
+        .post('/shows')
+        .send({title: 'another show', publisher: 'test publisher'})
+        .end( (err, res) => {
+            if (err) { done(err) }
+            expect(res.body.title).to.equal('another show')
+            expect(res.body).to.be.an('object')
+
+            Show.findOne({title: 'another show'})
+            .then((show) => {
+                expect(show).to.be.an('object')
+                expect(show.title).to.equal('another title')
+                done()
+            })
+        })
+    })
+
+    it('should update a show', (done) => {
+        Show.findOne({title: 'test show'})
+        .then((show) => {
+            chai.request(app)
+            .put(`/shows/${show._id}`)
+            .send({title: 'another show'})
+            .end( (err, res) => {
+                if(err) {done(err)}
+                expect(res.body.updatedShow).to.have.property('title', 'another show')
+                expect(res.body.updatedShow).to.be.an('object')
+
+                Show.findOne({title:'another show'})
+                .then( (show) => {
+                    expect(show).to.not.equal(null)
+                    done()
+                })
+            })
+        })
     })
 })
