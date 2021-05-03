@@ -153,4 +153,23 @@ describe('Shows API endpoints', () => {
             })
         })
     })
+
+    it('should delete a show', (done) => {
+        Show.findOne({title: 'test show'})
+        .then((show) => {
+            chai.request(app)
+            .delete(`/shows/${show._id}`)
+            .end((err, res) => {
+                if(err) {done(err)}
+                expect(res.body.message).to.equal('Successfully deleted')
+
+                //ensure it no longer exists in the db
+                Show.findOne({title:'test show'})
+                .then((show) => {
+                    expect(show).to.equal(null)
+                    done()
+                })
+            })
+        })
+    })
 })
