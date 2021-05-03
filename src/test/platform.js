@@ -53,5 +53,59 @@ describe('Platform API endpoints', () => {
         })
     })
 
+    it('should get a specific platform', (done) => {
+        Platform.findOne({name: 'test platform' })
+        .then((platform) => {
+            chai.request(app)
+            .get(`/platforms/${platform._id}`)
+            .end((err, res) => {
+                if (err) {done(err)}
+                expect(res).to.have.status(200)
+                expect(res.body).to.be.an('object')
+                expect(res.body.name).to.equal('test platform')
+                done()
+            })
+        })
+    })
+
+    it('should post a new platform', (done) => {
+        chai.request(app)
+        .post('/platforms')
+        .send({name:'another platform', shows: [] })
+        .end((err, res) => {
+            if (err) {done(err)}
+            expect(res.body.name).to.be.equal('another platform')
+            expect(res.body).to.be.an('object')
+
+            Platform.findOne({name: 'another platform' })
+            .then((platform) => {
+                expect(platform).to.be.an('object')
+                expect(platform).to.not.equal(null)
+                done()
+            })
+        })
+    })
+
+    it('should update a platform', (done) => {
+        Platform.findOne({name: 'test platform' })
+        .then((platform) => {
+            chai.request(app)
+            .put(`/platforms/${platform._id}`)
+            .send({title: 'another platform'})
+            .end((err, res) => {
+                if(err) {done(err)}
+                expect(res.body.updatedPlatform).to.be.an('object')
+                expect(res.body.updatedPlatform.name).to.be.equal('another platform')
+
+                //ensure it was updated in db
+                Platform.findOne({title: 'another platform'})
+                .then((platform) => {
+                    expect(platform).to.not.equal(null)
+                    done()
+                })
+            })
+        })
+    })
+
     
 })
