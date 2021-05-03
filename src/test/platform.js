@@ -41,4 +41,17 @@ describe('Platform API endpoints', () => {
             console.log(err)
         })
     })
+
+    it('should load all platforms', (done) => {
+        chai.request(app)
+        .get('/platforms')
+        .end((err, res) => {
+            if (err) {done(err)}
+            expect(res).to.have.status(200)
+            expect(res.body.platforms).to.be.an("array")
+            done()
+        })
+    })
+
+    
 })
