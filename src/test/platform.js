@@ -99,7 +99,7 @@ describe('Platform API endpoints', () => {
                 expect(res.body.updatedPlatform.name).to.be.equal('another platform')
 
                 //ensure it was updated in db
-                Platform.findOne({title: 'another platform'})
+                Platform.findOne({name: 'another platform'})
                 .then((platform) => {
                     expect(platform).to.not.equal(null)
                     done()
@@ -109,7 +109,7 @@ describe('Platform API endpoints', () => {
     })
 
     it('should delete a platform', (done) => {
-        Platform.findOne({title: 'test platform' })
+        Platform.findOne({name: 'test platform' })
         .then((platform) => {
             chai.request(app)
             .delete(`/platforms/${platform._id}`)
@@ -118,7 +118,7 @@ describe('Platform API endpoints', () => {
                 expect(res.body.message).to.equal('Successfully deleted')
                 
                 //ensure it's not in the db
-                Platform.findOne({title:'test platform'})
+                Platform.findOne({name:'test platform'})
                 .then((platform) => {
                     expect(platform).to.equal(null)
                     done()
