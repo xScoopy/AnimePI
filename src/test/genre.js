@@ -104,22 +104,21 @@ describe('Genre API endpoints', () => {
                     expect(genre).to.be.an('object')
                     done()
                 })
-                .catch(done)
             })
         })
     })
 
     it('should delete a genre', (done) => {
-        Genre.findOne({title: 'test genre' })
+        Genre.findOne({name: 'test genre' })
         .then((genre) => {
             chai.request(app)
             .delete(`/genres/${genre._id}`)
             .end((err, res) => {
                 if(err) {done(err)}
-                expect(res.body.message).to.equal('Successfully deleted')
+                expect(res.body.message).to.equal('Successfully deleted.')
                 
                 //ensure it's not in the db
-                Genre.findOne({title:'test genre'})
+                Genre.findOne({name:'test genre'})
                 .then((genre) => {
                     expect(genre).to.equal(null)
                     done()

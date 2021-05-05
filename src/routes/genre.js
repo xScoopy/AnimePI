@@ -53,5 +53,22 @@ router.put('/:genreId', (req, res) => {
     })
 })
 
+//Deletes an existing Genre
+router.delete('/:genreId', (req, res) => {
+    Genre.findByIdAndDelete(req.params.genreId)
+    .then((result) => {
+        if (result === null) {
+            return res.json({message: 'Genre does not exist'})
+        }
+        console.log('made it here')
+        return res.json({
+            'message': 'Successfully deleted.',
+            '_id': req.params.genreId
+        })
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
 
 module.exports = router
