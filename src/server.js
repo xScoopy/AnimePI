@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 require('./config/db-setup.js')
 
 // Routes
-const router = require('./routes/index.js')
+const router = require('./controllers/index.js')
 app.use(router)
 
 // Start Server
