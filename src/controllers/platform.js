@@ -25,5 +25,31 @@ router.get('/:platformId', (req, res) => {
     })
 })
 
+//Posts a new Platform
+router.post('/', (req, res) => {
+    let platform = new Platform(req.body)
+    platform.save()
+    .then(() => {
+        return res.send(platform)
+    })
+    .catch((err) => {
+        throw err.message  
+    })
+})
+
+//Updates an existing platform by id
+router.put('/:platformId', (req, res) => {
+    Platform.findByIdAndUpdate(req.params.platformId, req.body)
+    .then(() => {
+        return Platform.findOne({_id: req.params.platformId})
+    })
+    .then((updatedPlatform) => {
+        return res.json({updatedPlatform})
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
+
 
 module.exports = router

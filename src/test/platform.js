@@ -94,7 +94,7 @@ describe('Platform API endpoints', () => {
         .then((platform) => {
             chai.request(app)
             .put(`/platforms/${platform._id}`)
-            .send({title: 'another platform'})
+            .send({name: 'another platform'})
             .end((err, res) => {
                 if(err) {done(err)}
                 expect(res.body.updatedPlatform).to.be.an('object')
@@ -103,7 +103,8 @@ describe('Platform API endpoints', () => {
                 //ensure it was updated in db
                 Platform.findOne({name: 'another platform'})
                 .then((platform) => {
-                    expect(platform).to.not.equal(null)
+                    expect(platform).to.be.an('object')
+                    expect(platform).to.have.property('name', 'another platform')
                     done()
                 })
             })
