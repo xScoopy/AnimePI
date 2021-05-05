@@ -92,18 +92,19 @@ describe('Genre API endpoints', () => {
         .then((genre) => {
             chai.request(app)
             .put(`/genres/${genre._id}`)
-            .send({title: 'another genre'})
+            .send({name: 'another genre'})
             .end((err, res) => {
                 if(err) {done(err)}
                 expect(res.body.updatedGenre).to.be.an('object')
                 expect(res.body.updatedGenre.name).to.be.equal('another genre')
 
                 //ensure it was updated in db
-                Genre.findOne({title: 'another genre'})
-                .then((genre) => {
-                    expect(genre).to.not.equal(null)
+                Genre.findOne({name: 'another genre'})
+                .then(genre => {
+                    expect(genre).to.be.an('object')
                     done()
                 })
+                .catch(done)
             })
         })
     })

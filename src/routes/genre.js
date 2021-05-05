@@ -6,6 +6,7 @@ const Genre = require('../models/genre')
 
 /* Routes */
 
+//Retrieves list of all genres
 router.get('/', (req, res) => {
     Genre.find().then((genres) => {
         return res.json({genres})
@@ -15,6 +16,42 @@ router.get('/', (req, res) => {
     })
 })
 
+//Retrieves a genre of a specified Id
+router.get('/:genreId', (req, res) => {
+    Genre.findOne({_id: req.params.genreId})
+    .then((result) => {
+        res.json(result)
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
+
+//Posts a new Genre
+router.post('/', (req,res) => {
+    let genre = new Genre(req.body)
+    genre.save()
+    .then(() => {
+        return res.send(genre)
+    })
+    .catch(err => {
+        throw err.message
+    })
+})
+
+//Updates an Existing Genre
+router.put('/:genreId', (req, res) => {
+    Genre.findByIdAndUpdate(req.params.genreId, req.body)
+    .then(() => {
+        return Genre.findOne({_id: req.params.genreId })
+    })
+    .then((updatedGenre) => {
+        return res.json({updatedGenre})
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
 
 
 module.exports = router
