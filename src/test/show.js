@@ -6,7 +6,6 @@ const chaiHttp = require('chai-http')
 const assert = chai.assert
 
 const Show = require('../models/show.js')
-const User = require('../models/user.js')
 const Genre = require('../models/genre.js')
 const Platform = require('../models/platform.js')
 
@@ -25,12 +24,8 @@ after((done) => {
   })
 
 describe('Shows API endpoints', () => {
-    // creates a sample user, show, 
+    // creates a sample  show, 
     beforeEach((done) => {
-        const sampleUser = new User({
-            username: 'test', 
-            password: 'testpass'
-        })
         const sampleGenre = new Genre({
             name: 'test genre',
             shows: []
@@ -43,9 +38,7 @@ describe('Shows API endpoints', () => {
             title: 'test show', 
             publisher: 'test publisher',
             genres: [],
-            platforms: [],
-            watchedBy: [],
-            favoritedBy: []
+            platforms: []
         })
         sampleGenre.save()
         .then(() => {
@@ -68,15 +61,11 @@ describe('Shows API endpoints', () => {
             return samplePlatform.save()
         })
         .then(() => {
-            return sampleUser.save()
-        })
-        .then(() => {
             done()
         })
     })
 
     afterEach((done) => {
-        User.deleteMany({ username: ['test'] })
         Genre.deleteMany({ name: ['test genre'] })
         Platform.deleteMany({ name: ['test platform'] })
         Show.deleteMany({ title: ['test show', 'another show'] })
