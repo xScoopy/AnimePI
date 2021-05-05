@@ -13,6 +13,7 @@ PlatformSchema.pre('findOne', function (next){
 
 PlatformSchema.pre('find', function (next) {
     this.populate('shows')
+    next()
 })
 
 const Platform = mongoose.model('Platform', PlatformSchema)

@@ -60,7 +60,6 @@ router.delete('/:genreId', (req, res) => {
         if (result === null) {
             return res.json({message: 'Genre does not exist'})
         }
-        console.log('made it here')
         return res.json({
             'message': 'Successfully deleted.',
             '_id': req.params.genreId

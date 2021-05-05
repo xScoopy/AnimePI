@@ -48,7 +48,9 @@ describe('Platform API endpoints', () => {
         .get('/platforms')
         .end((err, res) => {
             if (err) {done(err)}
+            console.log('status fine')
             expect(res).to.have.status(200)
+            console.log('body array fine')
             expect(res.body.platforms).to.be.an("array")
             done()
         })
