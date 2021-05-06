@@ -1,5 +1,6 @@
 const express = require('express')
 const Genre = require('../models/genre')
+const Platform = require('../models/platform')
 const router = express.Router()
 
 const Show = require('../models/show')
@@ -54,7 +55,7 @@ router.put('/:showId', (req, res) => {
 })
 
 //Adds a genre to a show
-router.put('/:showId/g/addGenre', (req, res) => {
+router.put('/:showId/addGenre', (req, res) => {
     console.log(req.body.genre)
     Genre.findOne({ name: req.body.genre })
         .then((genre) => {
@@ -63,9 +64,39 @@ router.put('/:showId/g/addGenre', (req, res) => {
                     show.genres.unshift(genre)
                     return show.save()
                 })
-                .then(() => {
+                .then((show) => {
+                    //breaking here
                     genre.shows.unshift(show)
                     return genre.save()
+                })
+                .then(() => {
+                    return Show.findOne({ _id: req.params.showId })
+                })
+                .then((updatedShow) => {
+                    return res.json({ updatedShow})
+                })
+                .catch((err) => {
+                    throw err.message
+                 })      
+        })
+        .catch((err) => {
+            throw err.message
+        })
+})
+
+//Adds a platform to a show
+router.put('/:showId/addPlatform', (req, res) => {
+    console.log(req.body.platform)
+    Platform.findOne({ name: req.body.platform })
+        .then((platform) => {
+            Show.findOne({ _id: req.params.showId })
+                .then((show) => {
+                    show.platforms.unshift(platform)
+                    return show.save()
+                })
+                .then((show) => {
+                    platform.shows.unshift(show)
+                    return platform.save()
                 })
                 .then(() => {
                     return Show.findOne({ _id: req.params.showId })

@@ -6,15 +6,15 @@ const PlatformSchema = new Schema({
     shows: [{type: Schema.Types.ObjectId, ref: "Show" }]
 })
 
-PlatformSchema.pre('findOne', function (next){
-    this.populate('shows')
-    next()
-})
+// PlatformSchema.pre('findOne', function (next){
+//     this.populate('shows')
+//     next()
+// })
 
-PlatformSchema.pre('find', function (next) {
-    this.populate('shows')
-    next()
-})
+// PlatformSchema.pre('find', function (next) {
+//     this.populate('shows')
+//     next()
+// })
 
 const Platform = mongoose.model('Platform', PlatformSchema)
 
