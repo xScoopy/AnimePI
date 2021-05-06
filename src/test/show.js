@@ -26,48 +26,20 @@ after((done) => {
 describe('Shows API endpoints', () => {
     // creates a sample  show, 
     beforeEach((done) => {
-        const sampleGenre = new Genre({
-            name: 'test genre',
-            shows: []
-        })
-        const samplePlatform = new Platform({
-            name: 'test platform',
-            shows: []
-        })
         const sampleShow = new Show({
             title: 'test show', 
             publisher: 'test publisher',
             genres: [],
             platforms: []
         })
-        sampleGenre.save()
-        .then(() => {
-            sampleShow.genres.unshift(sampleGenre)
-            return sampleShow.save()
-        })
-        .then(() => {
-            sampleGenre.shows.unshift(sampleGenre)
-            return sampleGenre.save()
-        })
-        .then(() => {
-            return samplePlatform.save()
-        })
-        .then(() => {
-            sampleShow.platforms.unshift(samplePlatform)
-            return sampleShow.save()
-        })
-        .then(() => {
-            samplePlatform.shows.unshift(sampleShow)
-            return samplePlatform.save()
-        })
+        sampleShow.save()
         .then(() => {
             done()
         })
     })
+        
 
     afterEach((done) => {
-        Genre.deleteMany({ name: ['test genre'] })
-        Platform.deleteMany({ name: ['test platform'] })
         Show.deleteMany({ title: ['test show', 'another show'] })
         .then(() => {
             done()
@@ -81,10 +53,10 @@ describe('Shows API endpoints', () => {
         chai.request(app)
         .get('/shows')
         .end((err,res) => {
-            if (err) { done(err) }
+            if (err) {done(err)}
             expect(res).to.have.status(200)
             expect(res.body.shows).to.be.an("array")
-            done();
+            done()
         })
     })
 
@@ -111,13 +83,12 @@ describe('Shows API endpoints', () => {
         .send({title: 'another show', publisher: 'test publisher'})
         .end( (err, res) => {
             if (err) { done(err) }
-            expect(res.body.title).to.equal('another show')
-            expect(res.body).to.be.an('object')
+            expect(res.body.show).to.be.an('object')
+            expect(res.body.show).to.have.property('title', 'another show')
 
             Show.findOne({title: 'another show'})
             .then((show) => {
                 expect(show).to.be.an('object')
-                expect(show.title).to.equal('another title')
                 done()
             })
         })
