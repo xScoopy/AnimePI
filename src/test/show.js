@@ -49,6 +49,9 @@ describe('Shows API endpoints', () => {
     afterEach((done) => {
         Show.deleteMany({ title: ['test show', 'another show'] })
         .then(() => {
+            Genre.deleteMany({ title: 'testGenre' })
+        })
+        .then(() => {
             done()
         })
         .catch((err) => {
