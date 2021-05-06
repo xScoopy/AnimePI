@@ -118,7 +118,7 @@ describe('Platform API endpoints', () => {
             .delete(`/platforms/${platform._id}`)
             .end((err, res) => {
                 if(err) {done(err)}
-                expect(res.body.message).to.equal('Successfully deleted')
+                expect(res.body.message).to.equal('Successfully deleted.')
                 
                 //ensure it's not in the db
                 Platform.findOne({name:'test platform'})

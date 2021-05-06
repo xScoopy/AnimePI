@@ -51,5 +51,22 @@ router.put('/:platformId', (req, res) => {
     })
 })
 
+//Deletes an existing user
+router.delete('/:platformId', (req, res) => {
+    Platform.findByIdAndDelete(req.params.platformId)
+    .then((result) => {
+        if (result === null) {
+            return res.json({message: 'Platform does not exist.'})
+        }
+        return res.json({
+            'message' : 'Successfully deleted.',
+            '_id': req.params.platformId
+        })
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
+
 
 module.exports = router
