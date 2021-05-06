@@ -32,7 +32,14 @@ describe('Shows API endpoints', () => {
             genres: [],
             platforms: []
         })
+        const sampleGenre = new Genre({
+            name: 'testGenre',
+            shows: []
+        })
         sampleShow.save()
+        .then(() => {
+            sampleGenre.save()
+        })
         .then(() => {
             done()
         })
@@ -129,6 +136,20 @@ describe('Shows API endpoints', () => {
                     expect(show).to.equal(null)
                     done()
                 })
+            })
+        })
+    })
+
+    it('should add a genre to a show', (done) => {
+        Show.findOne({title: 'test show'})
+        .then((show) => {
+            chai.request(app)
+            .put(`/shows/${show._id}/addGenre`)
+            .send({genre : 'testGenre'})
+            .end((err, res) => {
+                if(err) {done(err)}
+                expect(res.body.updatedShow).to.be.an('object')
+                done() 
             })
         })
     })

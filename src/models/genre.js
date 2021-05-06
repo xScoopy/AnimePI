@@ -6,15 +6,15 @@ const GenreSchema = new Schema({
     shows: [{type: Schema.Types.ObjectId, ref: "Show" }]
 })
 
-GenreSchema.pre('findOne', function (next) {
-    this.populate('shows')
-    next()
-})
+// GenreSchema.pre('findOne', function(next) {
+//     this.populate('shows')
+//     next()
+// })
 
-GenreSchema.pre('find', function (next) {
-    this.populate('shows')
-    next()
-})
+// GenreSchema.pre('find', function(next) {
+//     this.populate('shows')
+//     next()
+// })
 
 const Genre = mongoose.model('Genre', GenreSchema)
 
