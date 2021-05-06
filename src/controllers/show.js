@@ -37,4 +37,35 @@ router.post('/', (req, res) => {
         throw err.message
     })
 })
+
+//Updates an existing show
+router.put('/:showId', (req, res) => {
+    Show.findByIdAndUpdate({_id: req.params.showId}, req.body)
+    .then(() => {
+        return Show.findOne({_id:req.params.showId})
+    })
+    .then((updatedShow) => {
+        return res.json({updatedShow})
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
+
+//Deletes an existing show
+router.delete('/:showId', (req, res) => {
+    Show.findByIdAndDelete(req.params.showId)
+    .then((result) => {
+        if (result === null) {
+            return res.json({message: 'Show does not exist'})
+        }
+        return res.json({
+            'message': 'Successfully deleted.',
+            '_id': req.params.userId
+        })
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
 module.exports = router

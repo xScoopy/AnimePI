@@ -121,7 +121,7 @@ describe('Shows API endpoints', () => {
             .delete(`/shows/${show._id}`)
             .end((err, res) => {
                 if(err) {done(err)}
-                expect(res.body.message).to.equal('Successfully deleted')
+                expect(res.body.message).to.equal('Successfully deleted.')
 
                 //ensure it no longer exists in the db
                 Show.findOne({title:'test show'})
