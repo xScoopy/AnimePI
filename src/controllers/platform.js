@@ -25,6 +25,17 @@ router.get('/:platformId', (req, res) => {
     })
 })
 
+//Retrieves all shows of a specific platform
+router.get('/:platformId/shows', (req, res) => {
+    Platform.findOne({_id: req.params.platformId}).populate("shows")
+    .then((result) => {
+        res.json(result["shows"])
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
+
 //Posts a new Platform
 router.post('/', (req, res) => {
     let platform = new Platform(req.body)
