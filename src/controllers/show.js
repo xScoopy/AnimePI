@@ -59,25 +59,24 @@ router.put('/:showId/addGenre', (req, res) => {
     console.log(req.body.genre)
     Genre.findOne({ name: req.body.genre })
         .then((genre) => {
-            Show.findOne({ _id: req.params.showId })
-                .then((show) => {
-                    show.genres.unshift(genre)
-                    return show.save()
-                })
-                .then((show) => {
-                    //breaking here
-                    genre.shows.unshift(show)
-                    return genre.save()
-                })
-                .then(() => {
-                    return Show.findOne({ _id: req.params.showId })
-                })
-                .then((updatedShow) => {
-                    return res.json({ updatedShow})
-                })
-                .catch((err) => {
-                    throw err.message
-                 })      
+        Show.findOne({ _id: req.params.showId })
+            .then((show) => {
+                show.genres.unshift(genre)
+                return show.save()
+            })
+            .then((show) => {
+                genre.shows.unshift(show)
+                return genre.save()
+            })
+            .then(() => {
+                return Show.findOne({ _id: req.params.showId })
+            })
+            .then((updatedShow) => {
+                return res.json({ updatedShow})
+            })
+            .catch((err) => {
+                throw err.message
+            })      
         })
         .catch((err) => {
             throw err.message
@@ -86,27 +85,26 @@ router.put('/:showId/addGenre', (req, res) => {
 
 //Adds a platform to a show
 router.put('/:showId/addPlatform', (req, res) => {
-    console.log(req.body.platform)
     Platform.findOne({ name: req.body.platform })
         .then((platform) => {
             Show.findOne({ _id: req.params.showId })
-                .then((show) => {
-                    show.platforms.unshift(platform)
-                    return show.save()
-                })
-                .then((show) => {
-                    platform.shows.unshift(show)
-                    return platform.save()
-                })
-                .then(() => {
-                    return Show.findOne({ _id: req.params.showId })
-                })
-                .then((updatedShow) => {
-                    return res.json({ updatedShow})
-                })
-                .catch((err) => {
-                    throw err.message
-                 })      
+            .then((show) => {
+                show.platforms.unshift(platform)
+                return show.save()
+            })
+            .then((show) => {
+                platform.shows.unshift(show)
+                return platform.save()
+            })
+            .then(() => {
+                return Show.findOne({ _id: req.params.showId })
+            })
+            .then((updatedShow) => {
+                return res.json({ updatedShow})
+            })
+            .catch((err) => {
+                throw err.message
+            })      
         })
         .catch((err) => {
             throw err.message
