@@ -1,4 +1,5 @@
 const express = require('express')
+const { deleteOne } = require('../models/platform')
 const router = express.Router()
 const Platform = require('../models/platform')
 
@@ -18,7 +19,7 @@ router.get('/', (req, res) => {
 router.get('/:platformId', (req, res) => {
     Platform.findOne({_id: req.params.platformId})
     .then((result) => {
-        res.json(result)
+        return res.json(result)
     })
     .catch((err) => {
         throw err.message
@@ -62,7 +63,7 @@ router.put('/:platformId', (req, res) => {
     })
 })
 
-//Deletes an existing user
+//Deletes an existing platform
 router.delete('/:platformId', (req, res) => {
     Platform.findByIdAndDelete(req.params.platformId)
     .then((result) => {

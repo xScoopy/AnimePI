@@ -27,6 +27,17 @@ router.get('/:genreId', (req, res) => {
     })
 })
 
+//Retrieves all shows of a specific genre
+router.get('/:genreId/shows', (req, res) => {
+    Genre.findOne({_id: req.params.genreId}).populate("shows")
+    .then((result) => {
+        res.json(result["shows"])
+    })
+    .catch((err) => {
+        throw err.message
+    })
+})
+
 //Posts a new Genre
 router.post('/', (req,res) => {
     let genre = new Genre(req.body)
