@@ -11,10 +11,6 @@ Resources one can use in this API include:
 
 **Platform** - Platforms that have anime such as "Crunchyroll", "Funimation", "Netflix"
 
-**User** - Users that utilize the API
-
-**Publisher** - Publishers for anime such as "Funimation", "TV Tokyo"
-
 ## Methods
 GET - Retrieve resources
 
@@ -32,28 +28,20 @@ DELETE - remove resources
 
 #### Attributes
 
-**Title** - Title of the show
+**_id** - Id of the show
 
-**Seasons** - Amount of seasons currently available (as of April 2021)
+**title** - Title of the show
 
-**Genres** - Genres applicable to the current show
+**publisher** - Publisher for the current show
 
-**Publisher** - Publisher for the current show
+**genres** - Genres applicable to the current show
 
-**Release_Date** - Year the show was first released
-
-**Platforms** - Platform the show plays on.
+**platforms** - Platform the show plays on.
 > Note that some platforms are paid services and require an active subscription to view some shows. 
-
-**Watched_by** - List of users that have indicated they watched the show on AnimePI
-
-**Favorited_by** - List of users that have favorited the show on AnimePI
 
 #### Filters 
 
 **genre** : filters by a given str type genre
-
-**publisher** : filters by a given str type publisher
 
 **name**: filters by a given str name
 
@@ -78,23 +66,9 @@ DELETE - remove resources
 
 **name** - Platform name
 
-> A GET request to /Platform will return a list of the names of the platforms
+**shows** - List of shows that appear on the platform
 
-### /Users
 
-#### Attributes
-
-**username** - username for a user
-
-**shows_watched** - list of shows watched by that user
-
-**shows_favorited** - list of shows favorited by that user
-
-#### Filters
-
-**show_watched** : filter by users who have watched a show
-
-**show_favorited** : filter by users who have favorited a show
 
 
 
