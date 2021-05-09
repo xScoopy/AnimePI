@@ -1,38 +1,80 @@
 # AnimePI
+## V 1.0.0
 
 > My goal for this API is to be utilized by those who would like to catalogue their Anime watching journey, and compare it with others that would like to do the same. This will enable us to more easily find recommendations for anime that fit in with what we already enjoy, along with opening up some new avenues for genre/title exploration!
 
+***
 ## Resources
 Resources one can use in this API include: 
 
-**Shows** - Anime such as "Attack on Titan", "My Hero Academia"
+**Shows** - Anime such as "Attack on Titan", "My Hero Academia"<br>
+Model:
+> {
+>
+>"_id" : "Object Id",
+>
+>"title" : "String Title",
+>
+>"publisher" : "String Publisher",
+>
+>"genres" : [testGenreObject, testGenreObject],
+>
+>"platforms" : [testPlatformObject, TestPlatformObject]
+>
+>}
 
-**Genres** - Genres such as "Action", "Shonen", "Isekai"
+**Genres** - Genres such as "Action", "Shonen", "Isekai"<br>
+Model:
+> {
+>
+>"_id" : "Object Id",
+>
+>"name" : "String Genre Name",
+>
+>"genres" : [testShowObject, testShowObject]
+>
+>}
 
-**Platform** - Platforms that have anime such as "Crunchyroll", "Funimation", "Netflix"
-
+**Platforms** - Platforms that have anime such as "Crunchyroll", "Funimation", "Netflix"<br>
+Model:
+> {
+>
+>"_id" : "Object Id",
+>
+>"name" : "String Genre Name",
+>
+>"genres" : [testShowObject, testShowObject]
+>
+>}
+***
 ## Methods
-GET - Retrieve resources
+GET - Retrieve instances of resources
 
-POST - Create new resources
+POST - Create new instances of resources
 
-PATCH/PUT - Update/modify existing resources
+PUT - Update/modify existing resources
 
-DELETE - remove resources 
-
-> POST, PATCH, DELETE permissions unavailable to general users
+DELETE - remove existing resources 
 
 ## Endpoints 
 
 ### /Shows
 
-#### Attributes
+#### Valid Routes
 
-**_id** - Id of the show
+**GET** /shows - Retrieves a list of all shows in the DB
 
-**title** - Title of the show
+**GET** /shows/{showId} - Retrieves a single show of the given Id
+>replace {showId} with a valid Id of a show that exists in the db
 
-**publisher** - Publisher for the current show
+**POST** /shows - Adds a new show to the db assuming the request is in the following JSON format:
+>{
+>
+>    "title" : "Show Title",
+>
+>    "publisher" : "Show Publisher"
+>
+>}
 
 **genres** - Genres applicable to the current show
 
