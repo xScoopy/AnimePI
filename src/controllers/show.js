@@ -55,7 +55,7 @@ router.put('/:showId', (req, res) => {
 })
 
 //Adds a genre to a show
-router.put('/:showId/addGenre', (req, res) => {
+router.put('/:showId/add-genre', (req, res) => {
     console.log(req.body.genre)
     Genre.findOne({ name: req.body.genre })
         .then((genre) => {
@@ -84,7 +84,7 @@ router.put('/:showId/addGenre', (req, res) => {
 })
 
 //Adds a platform to a show
-router.put('/:showId/addPlatform', (req, res) => {
+router.put('/:showId/add-platform', (req, res) => {
     Platform.findOne({ name: req.body.platform })
         .then((platform) => {
             Show.findOne({ _id: req.params.showId })

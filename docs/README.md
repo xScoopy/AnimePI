@@ -7,45 +7,35 @@
 ## Resources
 Resources one can use in this API include: 
 
+
 **Shows** - Anime such as "Attack on Titan", "My Hero Academia"<br>
 Model:
-> {
->
->"_id" : "Object Id",
->
->"title" : "String Title",
->
->"publisher" : "String Publisher",
->
->"genres" : [testGenreObject, testGenreObject],
->
->"platforms" : [testPlatformObject, TestPlatformObject]
->
->}
+
+    {
+    "_id" : "Object Id",
+    "title" : "String Title",
+    "publisher" : "String Publisher",
+    "genres" : [testGenreObject, testGenreObject],
+    "platforms" : [testPlatformObject, TestPlatformObject]
+    }
 
 **Genres** - Genres such as "Action", "Shonen", "Isekai"<br>
 Model:
-> {
->
->"_id" : "Object Id",
->
->"name" : "String Genre Name",
->
->"genres" : [testShowObject, testShowObject]
->
->}
+
+    {
+    "_id" : "Object Id",
+    "name" : "String Genre Name",
+    "shows" : [testShowObject, testShowObject]
+    }
 
 **Platforms** - Platforms that have anime such as "Crunchyroll", "Funimation", "Netflix"<br>
 Model:
-> {
->
->"_id" : "Object Id",
->
->"name" : "String Genre Name",
->
->"genres" : [testShowObject, testShowObject]
->
->}
+
+    {
+    "_id" : "Object Id",
+    "name" : "String Genre Name",
+    "shows" : [testShowObject, testShowObject]
+    }
 ***
 ## Methods
 GET - Retrieve instances of resources
@@ -62,53 +52,92 @@ DELETE - remove existing resources
 
 #### Valid Routes
 
-**GET** /shows - Retrieves a list of all shows in the DB
+**GET** `/shows` - Retrieves a list of all shows in the DB
 
-**GET** /shows/{showId} - Retrieves a single show of the given Id
+**GET** `/shows/{showId}` - Retrieves a single show of the given Id
 >replace {showId} with a valid Id of a show that exists in the db
 
-**POST** /shows - Adds a new show to the db assuming the request is in the following JSON format:
->{
->
->    "title" : "Show Title",
->
->    "publisher" : "Show Publisher"
->
->}
+**POST** `/shows` - Adds a new show to the db assuming the request is in the following JSON format:
 
-**genres** - Genres applicable to the current show
+    {
+    "title" : "Show Title",
+    "publisher" : "Show Publisher"
+    }
 
-**platforms** - Platform the show plays on.
-> Note that some platforms are paid services and require an active subscription to view some shows. 
+> Note that all shows are initialized with empty genre and platform arrays automatically
 
-#### Filters 
+**PUT** `/shows/{showId}` - Updates a title or publisher of an existing show. JSON request body should include "title" and/or "publisher" updates only. 
 
-**genre** : filters by a given str type genre
+**PUT** `/shows/{showId}/add-genre` - Adds a Genre object to the list of genres under the show given by Id. Request body should adhere to the following format:
 
-**name**: filters by a given str name
+    {
+    "genre" : "Action"
+    }
 
-**platform**: filters by platform
+>Note that the string passed must be an exact match to a 'name' of an already existing genre in the Genres collection.
+
+**PUT** `/shows/{showId}/add-platform` - Adds a Platform object to the list of platforms under the show given by Id. Request body should adhere to the following format:
+
+    {
+    "platform" : "Netflix"
+    }
+
+>Note that the string passed must be an exact match to a 'name' of an already existing platform in the Platforms collection.
+
+**DELETE** `/shows/{showId}` - Deletes a show of the given Id from the DB. 
 
 
 ### /Genres
 
-#### Attributes
+#### Valid Routes
 
-**name** - Genre name
+**GET** `/genres` - Retrieves all genres
 
-**shows** - List of shows belonging to that genre
+**GET** `/genres/{genreId}` - Retrieves the genre of the specified Id
 
-#### Filters
+**GET** `/genres/{genreId}/shows` - Returns a list of shows in that genre, with all of the shows' details populated. 
 
-**name** : filter by genre name
+**POST** `/genres` - Adds a new genre to the db assuming the request body is in the following JSON format:
+
+    {
+    "name" : "Genre Name"
+    }
+
+> Note that the shows list will be initialized as empty and is not needed in the request body.  
+
+**PUT** `/genres/{genreId}` - Updates the name of the Genre of the given Id. Request body should adhere to the following format: 
+
+    {
+    "name" : "Updated Genre Name"
+    }
+
+**DELETE** `/genres/{genreId}` - Deletes the genre of the given Id from the db.
 
 ### /Platforms
 
-#### Attributes
+#### Valid Routes
 
-**name** - Platform name
+**GET** `/platforms` - Retrieves all platforms.
 
-**shows** - List of shows that appear on the platform
+**GET** `/platforms/{platformId}` - Retrieves the platform of the specified Id
+
+**GET** `/platforms/{platformId}/shows` - Returns a list of shows on the given platform, with all of the shows' details populated. 
+
+**POST** `/platforms` - Adds a new platform to the db assuming the request body is in the following JSON format:
+
+    {
+    "name" : "Platform Name"
+    }
+
+> Note that the shows list will be initialized as empty and is not needed in the request body. 
+
+**PUT** `/platforms/{platformId}` - Updates the name of the Platform of the given Id. Request body should adhere to the following format: 
+
+    {
+    "name" : "Updated Platform Name"
+    }
+
+**DELETE** `/platforms/{platformId}` - Deletes the platform of the given Id from the db.
 
 
 
