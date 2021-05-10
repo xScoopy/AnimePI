@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 
 //Retrieves a genre of a specified Id
 router.get('/:genreId', (req, res) => {
+
     Genre.findOne({_id: req.params.genreId})
     .then((result) => {
         res.json(result)
@@ -58,6 +59,9 @@ router.put('/:genreId', (req, res) => {
     })
     .then((updatedGenre) => {
         return res.json({updatedGenre})
+    })
+    .catch((err) => {
+        throw err.message
     })
     .catch((err) => {
         throw err.message
