@@ -24,8 +24,9 @@ const router = require('./controllers/index.js')
 app.use(router)
 
 // Start Server
-app.listen(process.env.PORT, () => {
-  console.log(`Example app listening on port ${process.env.PORT}!`)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`AnimePI listening on port ${PORT}!`)
 })
 
 module.exports = app
