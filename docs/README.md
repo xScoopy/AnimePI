@@ -4,6 +4,12 @@
 > My goal for this API is to be utilized by those who would like to catalogue their Anime watching journey, and compare it with others that would like to do the same. This will enable us to more easily find recommendations for anime that fit in with what we already enjoy, along with opening up some new avenues for genre/title exploration!
 
 ***
+
+## How to Use
+Each valid route will need to follow the URL: https://scoopy-animepi.herokuapp.com/
+
+Each route like /shows or /genres assumes those are appended to the end of the above url.
+
 ## Resources
 Resources one can use in this API include: 
 
@@ -48,7 +54,7 @@ DELETE - remove existing resources
 
 ## Endpoints 
 
-### /Shows
+### /shows
 
 #### Valid Routes
 
@@ -87,7 +93,7 @@ DELETE - remove existing resources
 **DELETE** `/shows/{showId}` - Deletes a show of the given Id from the DB. 
 
 
-### /Genres
+### /genres
 
 #### Valid Routes
 
@@ -113,7 +119,7 @@ DELETE - remove existing resources
 
 **DELETE** `/genres/{genreId}` - Deletes the genre of the given Id from the db.
 
-### /Platforms
+### /platforms
 
 #### Valid Routes
 
