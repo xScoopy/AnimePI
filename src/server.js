@@ -2,7 +2,7 @@
 require('dotenv/config')
 const express = require('express')
 const bodyParser = require('body-parser')
-
+const fs = require('fs')
 // Set App Variable
 const app = express()
 
@@ -22,6 +22,10 @@ require('./config/db-setup.js')
 // Routes
 const router = require('./controllers/index.js')
 app.use(router)
+
+app.get('/', (req, res) => {
+  res.redirect("https://xscoopy.github.io/AnimePI")
+})
 
 // Start Server
 const PORT = process.env.PORT || 3000;

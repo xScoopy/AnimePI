@@ -16,7 +16,7 @@ Resources one can use in this API include:
 
 **Shows** - Anime such as "Attack on Titan", "My Hero Academia"<br>
 Model:
-
+```
     {
     "_id" : "Object Id",
     "title" : "String Title",
@@ -24,7 +24,7 @@ Model:
     "genres" : [testGenreObject, testGenreObject],
     "platforms" : [testPlatformObject, TestPlatformObject]
     }
-
+```
 **Genres** - Genres such as "Action", "Shonen", "Isekai"<br>
 Model:
 
